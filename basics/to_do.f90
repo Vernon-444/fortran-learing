@@ -1,14 +1,24 @@
-program todo2
+program todo3
+    use todo_routines_m, only: readPreviousTasks, interact, TASK_LENGTH, MAX_TASKS
+
     implicit none
 
-    integer, parameter :: MAX_TASKS = 99
-    integer, parameter :: TASK_LENGTH = 100
-    character(len=*), parameter :: TODO_FILE = "todo.txt"
     integer :: num_tasks
     character(len=TASK_LENGTH) :: tasks(MAX_TASKS)
 
     call readPreviousTasks(tasks, num_tasks)
     call interact(tasks, num_tasks)
+end program todo3
+
+module todo_routines_m
+    implicit none
+    private
+
+    integer, public, parameter :: MAX_TASKS = 99
+    integer, public, parameter :: TASK_LENGTH = 100
+    character(len=*), parameter :: TODO_FILE = "todo.txt"
+
+    public :: readPreviousTasks, interact
 contains
     subroutine readPreviousTasks(tasks_, num_tasks_)
         character(len=TASK_LENGTH), intent(out) :: tasks_(MAX_TASKS)
@@ -117,4 +127,4 @@ contains
 
         close(unit)
     end subroutine save
-end program todo2
+end module todo_routines_m
